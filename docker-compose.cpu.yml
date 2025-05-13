@@ -8,5 +8,6 @@ services:
   - .assets:/facefusion/.assets
   - .caches:/facefusion/.caches
   - .jobs:/facefusion/.jobs
+  - ./facefusion.ini:/facefusion/facefusion.ini
   ports:
   - 7865:7860
