@@ -9,5 +9,6 @@ services:
   - .caches:/facefusion/.caches
   - .jobs:/facefusion/.jobs
   - ./facefusion.ini:/facefusion/facefusion.ini
+  - ./facefusion/content_analyser.py:/facefusion/facefusion/content_analyser.py
   ports:
   - 7865:7860
