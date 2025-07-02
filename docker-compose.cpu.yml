@@ -1,14 +1,21 @@
 services:
- facefusion-cpu:
-  build:
-   context: .
-   dockerfile: Dockerfile.cpu
-  command: [ 'python', 'facefusion.py', 'run' ]
-  volumes:
-  - .assets:/facefusion/.assets
-  - .caches:/facefusion/.caches
-  - .jobs:/facefusion/.jobs
-  - ./facefusion.ini:/facefusion/facefusion.ini
-  - ./facefusion/content_analyser.py:/facefusion/facefusion/content_analyser.py
-  ports:
-  - 7865:7860
+  facefusion-cpu:
+    build:
+      context: .
+      dockerfile: Dockerfile.cpu
+    command: [ 'python', 'facefusion.py', 'run' ]
+    volumes:
+      - .assets:/facefusion/.assets
+      - .caches:/facefusion/.caches
+      - .jobs:/facefusion/.jobs
+      - ./facefusion.ini:/facefusion/facefusion.ini
+      - ./facefusion/content_analyser.py:/facefusion/content_analyser.py
+    ports:
+      - "7865:7860"
+    cpus: 4
+    cpuset: "0-3"
+    environment:
+      - OMP_NUM_THREADS=4
+      - MKL_NUM_THREADS=4
+      - ONNXRUNTIME_INTRA_OP_NUM_THREADS=4
+      - ONNXRUNTIME_INTER_OP_NUM_THREADS=1
