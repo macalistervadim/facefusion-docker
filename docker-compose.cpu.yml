@@ -10,12 +10,18 @@ services:
       - .jobs:/facefusion/.jobs
       - ./facefusion.ini:/facefusion/facefusion.ini
       - ./facefusion/content_analyser.py:/facefusion/content_analyser.py
+      - ./facefusion/facefusion.py:/facefusion/facefusion.py
+
     ports:
       - "7865:7860"
     cpus: 4
-    cpuset: "0-3"
     environment:
       - OMP_NUM_THREADS=4
       - MKL_NUM_THREADS=4
       - ONNXRUNTIME_INTRA_OP_NUM_THREADS=4
       - ONNXRUNTIME_INTER_OP_NUM_THREADS=1
+      - ORT_DISABLE_AFFINITY=1
+      - OMP_PROC_BIND=false
+      - OMP_PLACES=cores
+    security_opt:
+        - seccomp=unconfined
